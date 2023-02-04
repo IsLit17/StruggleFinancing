@@ -10,7 +10,7 @@ export default function LoginScreen({navigation}) {
   const [text, onChangeText] = React.useState('');
 
   return (
-    <View style={textboxStyle.container}>
+    <View style={styles.container}>
       <Text>You are on the login page</Text>
       <Text>{text}</Text>
       <TextInput
