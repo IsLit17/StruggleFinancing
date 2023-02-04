@@ -1,16 +1,22 @@
+import React from 'react';
+import { SafeAreaView, TextInput} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 export default function App() {
+  const [email, onChangeEmail] = React.useState('');
   return (
-    <NavigationContainer>
     <View style={styles.container}>
-      <Text>LETS GET STRUGGLE FINANCING! - RizzGod</Text>
-      <StatusBar style="auto" />
+      {/* <Text>LETS GET STRUGGLE FINANCING! - RizzGod</Text> */}
+      {/* <SafeAreaView> */}
+        <TextInput
+          onChangeText={onChangeEmail}
+          value={email}
+        />
+      {/* </SafeAreaView> */}
     </View>
-    </NavigationContainer>
   );
 }
 
