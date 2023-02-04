@@ -12,8 +12,9 @@ export default function LoginScreen({navigation}) {
   return (
     <View style={textboxStyle.container}>
       <Text>You are on the login page</Text>
+      <Text>{text}</Text>
       <TextInput
-        style={textbox.input}
+        style={textboxStyle.input}
         onChangeText={onChangeText}
         value={text}
         placeholder="Email"
