@@ -1,6 +1,6 @@
 //important imports
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Image} from 'react-native'; // importing components
+import { StyleSheet, Text, View, Button, Image, Alert, ActivityIndicator} from 'react-native'; // importing components
 import { SafeAreaView, TextInput} from 'react-native';
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -8,19 +8,39 @@ import { auth } from "./firebaseConfig";
 
 // const auth = getAuth();
 
-export async function loginWithEmail(email, password, navigation){
+export async function loginWithEmail(email, password, navigation, onChangeAlert, onChangeLoading){
   console.log('inside log in with email')
+  onChangeLoading(
+    <View style = {styles.overlayLoadingContainer}>
+      <ActivityIndicator style={styles.loading} size="large"/>
+    </View>
+  )
   await signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
       console.log('successful login as: ', user.email)
+      console.log('uid: ', user.uid)
       navigation.navigate('Home')
-
+      onChangeLoading(null)
     })
     .catch((error) => {
       console.log('error login')
-
+      onChangeLoading(null)
+      onChangeAlert(
+        Alert.alert(
+          "Invalid Credentials",
+          "Invalid password or email",
+          [
+            {
+              text: "Go Back",
+              onPress: () => console.log("Ok Pressed") && onChangeAlert(null),
+              style: "cancel"
+            }
+          ],
+          { cancelable: false }
+        )
+      )
       const errorCode = error.code;
       const errorMessage = error.message;
     });
@@ -32,13 +52,19 @@ export async function loginWithEmail(email, password, navigation){
 export default function LoginScreen({navigation}) {
   const [email, onChangeEmail] = React.useState('');
   const [password, onChangePassword] = React.useState('');
+  const [alert, onChangeAlert] = React.useState(null);
+  const [loading, onChangeLoading] = React.useState(null);
+
+
 
   return (
     <View style={styles.container}>
+      <Text style = {{bottom: 60, fontSize: 50, color: '#072'}}>S T R U G G L E</Text>
+      <Text style = {{bottom: 50, fontSize: 45, color: '#072'}}>F I N A N C I N G</Text>
       <View style = {{alignItems: 'center'}}>
         <Image source={require('./assets/loginicon.png')} style = {{width: 100, height: 100}}/>
       </View>
-      <Text style = {{fontSize: 28, color: '#aaf'}}>Login</Text>
+      <Text style = {{fontSize: 25, color: '#072'}}>Enter Login Credentials</Text>
       
       <TextInput
         style={textboxStyle.input}
@@ -54,21 +80,18 @@ export default function LoginScreen({navigation}) {
       />
 
 
-      <Text style = {{right: 11}}>Don't have an account -> {""}
+      <Text style = {{right: 11}}>Don't have an account -{'>'} {""}
 
         <Text style={{color: 'blue', textDecorationLine: 'underline'}}
           onPress={() => navigation.navigate('Sign Up')}>
           Sign up
         </Text>
       </Text>
-{/*       
-      <Button
-          title="Home Page"
-          onPress={() => navigation.navigate('Home')}
-      />  */}
+      {alert}
+      {loading}
       <Button
         title="Login"
-        onPress={() => loginWithEmail(email, password, navigation)}
+        onPress={() => loginWithEmail(email, password, navigation, onChangeAlert, onChangeLoading)}
       />
     </View>
   );
@@ -77,10 +100,31 @@ export default function LoginScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffe',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  overlayLoadingContainer:{
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    justifyContent:'center',
+    alignItems:'center',
+    zIndex: 1,
+    backgroundColor: 'black',
+    opacity: 0.5,
+ },
 });
 
 
