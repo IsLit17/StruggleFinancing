@@ -14,17 +14,15 @@ export default function LoginScreen({navigation}) {
       <Text>You are on the login page</Text>
       <TextInput
         style={styles2.input}
-        onChangeText={onChangeNumber}
-        value={number}
+        onChangeText={onChangeText}
+        value={text}
         placeholder="Email"
-        keyboardType="numeric"
       />
       <TextInput
         style={styles2.input}
-        onChangeText={onChangeText}
-        value={text}
-        placeholder="Password"
-        keyboardType="numeric"
+        onChangeText={onChangeNumber}
+        value={number}
+        placeholder="password"
       />
       <Button
           title="home page"
