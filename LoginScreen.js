@@ -10,16 +10,16 @@ export default function LoginScreen({navigation}) {
   const [text, onChangeText] = React.useState('');
 
   return (
-    <View style={styles.container}>
+    <View style={textboxStyle.container}>
       <Text>You are on the login page</Text>
       <TextInput
-        style={styles2.input}
+        style={textbox.input}
         onChangeText={onChangeText}
         value={text}
         placeholder="Email"
       />
       <TextInput
-        style={styles2.input}
+        style={textboxStyle.input}
         onChangeText={onChangeNumber}
         value={number}
         placeholder="password"
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const styles2 = StyleSheet.create({
+const textboxStyle = StyleSheet.create({
   input: {
     height: 40,
     margin: 12,
