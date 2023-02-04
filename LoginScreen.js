@@ -12,7 +12,7 @@ export async function loginWithEmail(email, password, navigation, onChangeAlert,
   console.log('inside log in with email')
   onChangeLoading(
     <View style = {styles.overlayLoadingContainer}>
-    <ActivityIndicator style={styles.loading} size="large"/>
+      <ActivityIndicator style={styles.loading} size="large"/>
     </View>
   )
   await signInWithEmailAndPassword(auth, email, password)
@@ -20,6 +20,7 @@ export async function loginWithEmail(email, password, navigation, onChangeAlert,
       // Signed in 
       const user = userCredential.user;
       console.log('successful login as: ', user.email)
+      console.log('uid: ', user.uid)
       navigation.navigate('Home')
       onChangeLoading(null)
     })
