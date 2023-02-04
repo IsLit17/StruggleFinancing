@@ -1,0 +1,2 @@
+# StruggleFinancing
+Cruzhacks mobile app.
