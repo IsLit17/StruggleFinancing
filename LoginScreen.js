@@ -71,6 +71,8 @@ const styles = StyleSheet.create({
   },
 });
 
+
+// export default LoginScreen;
 const textboxStyle = StyleSheet.create({
   input: {
     height: 40,
