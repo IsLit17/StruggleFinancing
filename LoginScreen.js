@@ -1,7 +1,7 @@
 //important imports
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, Image, Alert, ActivityIndicator} from 'react-native'; // importing components
-import { SafeAreaView, TextInput} from 'react-native';
+import { SafeAreaView, TextInput, TouchableWithoutFeedback, Keyboard} from 'react-native';
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebaseConfig";
@@ -59,8 +59,8 @@ export default function LoginScreen({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Text style = {{bottom: 60, fontSize: 50, color: '#072'}}>S T R U G G L E</Text>
-      <Text style = {{bottom: 50, fontSize: 45, color: '#072'}}>F I N A N C I N G</Text>
+      <Text style = {{bottom: 80, fontSize: 50, color: '#072'}}>S T R U G G L E</Text>
+      <Text style = {{bottom: 70, fontSize: 45, color: '#072'}}>F I N A N C I N G</Text>
       <View style = {{alignItems: 'center'}}>
         <Image source={require('./assets/loginicon.png')} style = {{width: 100, height: 100}}/>
       </View>
@@ -79,20 +79,20 @@ export default function LoginScreen({navigation}) {
         placeholder="password"
       />
 
-
-      <Text style = {{right: 11}}>Don't have an account -{'>'} {""}
-
-        <Text style={{color: 'blue', textDecorationLine: 'underline'}}
-          onPress={() => navigation.navigate('Sign Up')}>
-          Sign up
-        </Text>
-      </Text>
       {alert}
       {loading}
       <Button
         title="Login"
         onPress={() => loginWithEmail(email, password, navigation, onChangeAlert, onChangeLoading)}
       />
+
+      <Text style = {{top: 10, right: 11}}>Don't have an account -{'>'} {""}
+        <Text style={{color: 'blue', textDecorationLine: 'underline'}}
+          onPress={() => navigation.navigate('Sign Up')}>
+          Sign up
+        </Text>
+      </Text>
+
     </View>
   );
 }
