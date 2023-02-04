@@ -59,10 +59,12 @@ export default function LoginScreen({navigation}) {
 
   return (
     <View style={styles.container}>
+      <Text style = {{bottom: 60, fontSize: 50, color: '#072'}}>S T R U G G L E</Text>
+      <Text style = {{bottom: 50, fontSize: 45, color: '#072'}}>F I N A N C I N G</Text>
       <View style = {{alignItems: 'center'}}>
         <Image source={require('./assets/loginicon.png')} style = {{width: 100, height: 100}}/>
       </View>
-      <Text style = {{fontSize: 28, color: '#aaf'}}>Login</Text>
+      <Text style = {{fontSize: 25, color: '#072'}}>Enter Login Credentials</Text>
       
       <TextInput
         style={textboxStyle.input}
@@ -98,7 +100,7 @@ export default function LoginScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffe',
     alignItems: 'center',
     justifyContent: 'center',
   },
