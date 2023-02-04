@@ -5,11 +5,11 @@ import { StyleSheet } from 'react-native'; // To add styles
 
 import { createStackNavigator } from '@react-navigation/stack'; //Insert screens into a stack
 import { NavigationContainer } from '@react-navigation/native'; //contains navigator and screen
-import React from 'react';
+// import React from 'react';
 import { SafeAreaView, TextInput} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+// import { StyleSheet, Text, View } from 'react-native';
+// import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import LoginScreen from './LoginScreen';// Home screen
@@ -29,25 +29,45 @@ import HomeScreen from './HomeScreen';// About Screen
 //   );
 // }
 
+function Text() {
+  const [text, onChangeText] = React.useState('Useless Text');
+  return(
+    <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        value={text}
+      />
+  )
+}
+
 const Stack = createStackNavigator();// createStackNavigator is used to create a stack like structure. 
 
-class App extends Component {
-  render() {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-          />
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-          /> 
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
+export default function App() {
+  const [number, onChangeNumber] = React.useState('');
+  const [text, onChangeText] = React.useState('Useless Text');
+  return (
+    <>
+
+    <NavigationContainer>
+      <Stack.Navigator>
+        
+      
+      {/* <Stack.Screen
+          name="textbox"
+          component={Text}
+        /> */}
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+        />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+        /> 
+      </Stack.Navigator>
+    </NavigationContainer>
+    </>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -59,4 +79,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+
+// export default App; /
