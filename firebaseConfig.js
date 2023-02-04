@@ -1,32 +1,34 @@
-import { initializeApp } from 'firebase/app';
-var admin = require("firebase-admin");
+// var admin = require("firebase-admin");
 
-// Optionally import the services that you want to use
-// import {...} from "firebase/auth";
-// import {...} from "firebase/database";
-// import {...} from "firebase/firestore";
-// import {...} from "firebase/functions";
-// import {...} from "firebase/storage";
+// var serviceAccount = require("path/to/serviceAccountKey.json");
 
-var serviceAccount = require("path/to/serviceAccountKey.json");
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAF19mksgWAfHS3NJpompq4qqGRWzEo0ec",
+  authDomain: "struggle-finance.firebaseapp.com",
+  projectId: "struggle-finance",
+  storageBucket: "struggle-finance.appspot.com",
+  messagingSenderId: "874862288188",
+  appId: "1:874862288188:web:be1fd56c1a4d69a1e19239",
+  measurementId: "G-2Y6PNBJTDT"
+};
 
 // Initialize Firebase
-// const firebaseConfig = {
-//   apiKey: 'api-key',
-//   authDomain: 'project-id.firebaseapp.com',
-//   databaseURL: 'https://project-id.firebaseio.com',
-//   projectId: 'project-id',
-//   storageBucket: 'project-id.appspot.com',
-//   messagingSenderId: 'sender-id',
-//   appId: 'app-id',
-//   measurementId: 'G-measurement-id',
-// };
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+const analytics = getAnalytics(app);
 
-// const app = initializeApp(firebaseConfig);
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-  });
+// admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount)
+//   });
 
 // For more information on how to access Firebase in your project,
 // see the Firebase documentation: https://firebase.google.com/docs/web/setup#access-firebase

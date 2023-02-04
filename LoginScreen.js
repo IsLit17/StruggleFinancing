@@ -2,32 +2,37 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native'; // importing components
 import { SafeAreaView, TextInput} from 'react-native';
+import {LoginWithEmail} from './firebaseAuth/auth_login_password'
 
 
 // The home screen contains the text “You are on the home page” and a button.
 export default function LoginScreen({navigation}) {
-  const [number, onChangeNumber] = React.useState('');
-  const [text, onChangeText] = React.useState('');
+  const [email, onChangeEmail] = React.useState('');
+  const [password, onChangePassword] = React.useState('');
 
   return (
     <View style={styles.container}>
       <Text>You are on the login page</Text>
-      <Text>{text}</Text>
+      <Text>{email}</Text>
       <TextInput
         style={textboxStyle.input}
-        onChangeText={onChangeText}
-        value={text}
+        onChangeText={onChangeEmail}
+        value={email}
         placeholder="Email"
       />
       <TextInput
         style={textboxStyle.input}
-        onChangeText={onChangeNumber}
-        value={number}
+        onChangeText={onChangePassword}
+        value={password}
         placeholder="password"
       />
-      <Button
+      {/* <Button
           title="home page"
           onPress={() => navigation.navigate('Home')}
+      /> */}
+      <Button
+        title="Login"
+        onPress={() => LoginWithEmail(email, password)}
       />
     </View>
   );
