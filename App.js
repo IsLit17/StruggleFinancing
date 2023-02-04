@@ -14,6 +14,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import LoginScreen from './LoginScreen';// Home screen
 import HomeScreen from './HomeScreen';// About Screen
+import SignUpScreen from './SignUpScreen';
 // export default function App() {
 //   const [email, onChangeEmail] = React.useState('');
 //   return (
@@ -59,6 +60,10 @@ export default function App() {
         <Stack.Screen
           name="Login"
           component={LoginScreen}
+        />
+        <Stack.Screen
+          name="Sign Up"
+          component={SignUpScreen}
         />
         <Stack.Screen
           name="Home"

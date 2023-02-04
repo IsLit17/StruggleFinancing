@@ -1,8 +1,7 @@
 //important imports
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native'; // importing components
+import { StyleSheet, Text, View, Button, Image} from 'react-native'; // importing components
 import { SafeAreaView, TextInput} from 'react-native';
-// import {loginWithEmail} from './firebaseAuth/auth_login_password'
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebaseConfig";
@@ -36,8 +35,11 @@ export default function LoginScreen({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Text>You are on the login page</Text>
-      <Text>{email}</Text>
+      <View style = {{alignItems: 'center'}}>
+        <Image source={require('./assets/loginicon.png')} style = {{width: 100, height: 100}}/>
+      </View>
+      <Text style = {{fontSize: 28, color: '#aaf'}}>Login</Text>
+      
       <TextInput
         style={textboxStyle.input}
         onChangeText={onChangeEmail}
@@ -50,10 +52,20 @@ export default function LoginScreen({navigation}) {
         value={password}
         placeholder="password"
       />
-      {/* <Button
-          title="home page"
+
+
+      <Text style = {{right: 11}}>Don't have an account -> {""}
+
+        <Text style={{color: 'blue', textDecorationLine: 'underline'}}
+          onPress={() => navigation.navigate('Sign Up')}>
+          Sign up
+        </Text>
+      </Text>
+{/*       
+      <Button
+          title="Home Page"
           onPress={() => navigation.navigate('Home')}
-      /> */}
+      />  */}
       <Button
         title="Login"
         onPress={() => loginWithEmail(email, password, navigation)}
@@ -79,7 +91,7 @@ const textboxStyle = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    width: 250
+    width: 250,
     // flex: 1,
     // backgroundColor: '#fff',
     // alignItems: 'center',
