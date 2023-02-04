@@ -1,10 +1,26 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Text, FlatList, TouchableOpacity, Image, Button} from "react-native";
+import {StyleSheet, View, Text, FlatList, TouchableOpacity, Image, Button, Alert} from "react-native";
 // About screen contains the text “You are on the about page” and a button.
 export default function HomeScreen({navigation}) {
+    const notification = () =>
+        Alert.alert(
+        "Testing Alert",
+        "Stop spending money",
+        [
+          {
+            text: "Ok",
+            onPress: () => console.log("Ok Pressed"),
+            style: "cancel"
+          },
+          { text: "Nope", onPress: () => console.log("Nope Pressed") }
+        ],
+        { cancelable: false }
+      );
     return (
       <View style={styles.container}>
         <Text style= {styles.greenTxt}>Struggle Financing</Text>
+        <Text style = {styles.blueTxt}>Notifications</Text>
+        <Button title="2-Button Alert" onPress={notification} />
         <View style = {bottomStyle.container}>
         <Button
             title="Home"
@@ -18,7 +34,6 @@ export default function HomeScreen({navigation}) {
             onPress={() => navigation.navigate('Login')}
         />
         </View>
-        <Text style = {styles.blueTxt}>Notifications</Text>
       </View>
     );
 }
