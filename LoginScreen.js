@@ -78,7 +78,7 @@ export default function LoginScreen({navigation}) {
       />
 
 
-      <Text style = {{right: 11}}>Don't have an account -> {""}
+      <Text style = {{right: 11}}>Don't have an account -{'>'} {""}
 
         <Text style={{color: 'blue', textDecorationLine: 'underline'}}
           onPress={() => navigation.navigate('Sign Up')}>
