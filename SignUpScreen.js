@@ -3,9 +3,10 @@ import { StyleSheet, Text, View, Button, Image, Alert, ActivityIndicator} from '
 import { SafeAreaView, TextInput, TouchableWithoutFeedback, Keyboard} from 'react-native';
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebaseConfig";
+import { doc, setDoc } from "firebase/firestore"; 
+import { auth, db } from "./firebaseConfig";
 
-export async function signInWithEmail(email, password, navigation, onChangeLoading){
+export async function signInWithEmail(email, password, navigation, firstname, lastname, onChangeLoading){
   console.log('inside sign up with email')
   onChangeLoading(
     <View style = {styles.overlayLoadingContainer}>
@@ -13,9 +14,15 @@ export async function signInWithEmail(email, password, navigation, onChangeLoadi
     </View>
   )
   await createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       // Signed in 
       onChangeLoading(null)
+      await setDoc(doc(db, "users", userCredential.user.email), {
+        firstname: firstname,
+        lastname: lastname,
+        email: userCredential.user.email,
+        uid: userCredential.user.uid,
+      });
       const user = userCredential.user;
       console.log('successful created user as: ', user.email)
       console.log('uid: ', user.uid)
@@ -129,7 +136,7 @@ export default function SignUpScreen({navigation}) {
         </TouchableWithoutFeedback>
         <Text style = {{bottom: 170, fontSize: 25}}>Bronco's Country {""}
           <Text style={{color: 'blue', textDecorationLine: 'underline'}}
-            onPress={() => signInWithEmail(email, password1, navigation, onChangeLoading)}>
+            onPress={() => signInWithEmail(email, password1, navigation, first, last, onChangeLoading)}>
             Lets Ride
           </Text>
         </Text>
