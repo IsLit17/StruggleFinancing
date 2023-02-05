@@ -16,6 +16,7 @@ import LoginScreen from './LoginScreen';
 import HomeScreen from './HomeScreen';
 import SignUpScreen from './SignUpScreen';
 import SubsScreen from './SubsScreen';
+import SubPrompt from './SubPrompt';
 // export default function App() {
 //   const [email, onChangeEmail] = React.useState('');
 //   return (
@@ -73,6 +74,10 @@ export default function App() {
         <Stack.Screen
           name="Subs"
           component={SubsScreen}
+        /> 
+        <Stack.Screen
+          name="SubPrompt"
+          component={SubPrompt}
         /> 
       </Stack.Navigator>
     </NavigationContainer>

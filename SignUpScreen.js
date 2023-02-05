@@ -17,16 +17,17 @@ export async function signInWithEmail(email, password, navigation, firstname, la
     .then(async (userCredential) => {
       // Signed in 
       onChangeLoading(null)
-      await setDoc(doc(db, "users", userCredential.user.email), {
+      const user = userCredential.user;
+      await setDoc(doc(db, "users", user.email), {
         firstname: firstname,
         lastname: lastname,
-        email: userCredential.user.email,
-        uid: userCredential.user.uid,
+        email: user.email,
+        uid: user.uid,
       });
-      const user = userCredential.user;
+      
       console.log('successful created user as: ', user.email)
       console.log('uid: ', user.uid)
-      navigation.navigate('Home')
+      navigation.navigate('Home', {email: user.email})
 
       // ...
     })
@@ -57,7 +58,7 @@ export async function signInWithEmail(email, password, navigation, firstname, la
 
 
 // About screen contains the text “You are on the about page” and a button.
-export default function SignUpScreen({navigation}) {
+export default function SignUpScreen({navigation, route}) {
   const [email, onChangeEmail] = React.useState('');
   const [password1, onChangePassword1] = React.useState('');
   const [password2, onChangePassword2] = React.useState('');

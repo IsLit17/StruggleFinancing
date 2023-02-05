@@ -1,34 +1,51 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import {StyleSheet, View, Text, FlatList, TouchableOpacity, Image, Button, Alert} from "react-native";
+import { DataTable } from 'react-native-paper';
+import { Center, VStack } from 'native-base';
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebaseConfig";
 // About screen contains the text “You are on the about page” and a button.
-export default function SubsScreen({navigation}) {
-    const notification = () =>
-        Alert.alert(
-        "Reminder",
-        "Have you already paid this?",
-        [
-          {
-            text: "Yes",
-            onPress: () => console.log("Yes Pressed"),
-            style: "cancel"
-          },
-          { text: "Dismiss", onPress: () => console.log("Dismiss Pressed") }
-        ],
-        { cancelable: false }
-        );
+export default function SubsScreen({navigation, route}) {
+    const [subscriptions, setSubs] = React.useState([]);
+    var keyList = null;
+    (subscriptions != null ? keyList = Object.keys(subscriptions) : keyList = []);
+    useEffect(async() => {
+      console.log('here')
+      const docRef = doc(db, "users", route.params.email);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setSubs(docSnap.data().subscriptions)
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }, [])
+    console.log(keyList);
     return (
-      <View style={styles.container}>
-        <Text style= {styles.greenTxt}>Subscriptions</Text>
-        <View style = {bottomStyle.container}>
-        <Button
-            title="Home"
-            onPress={() => navigation.navigate('Home')}
-        />
-        <Button
-            title="Logout"
-            onPress={() => navigation.navigate('Login')}
-        />
-        </View>
+      <View style = {styles.container}>
+          <Text style= {styles.greenTxt}>Subscriptions</Text>
+          <View>
+          <Button
+            title="Add Subscription"
+            onPress={() => navigation.navigate('SubPrompt', {email: route.params.email})}
+          />
+          </View>
+          <DataTable style={tableStyles.container}>
+            <DataTable.Header style={tableStyles.tableHeader}>
+              <DataTable.Title>Name</DataTable.Title>
+              <DataTable.Title>Price</DataTable.Title>
+              <DataTable.Title>Date</DataTable.Title>
+            </DataTable.Header>
+            {keyList.map(x =>
+            <DataTable.Row>
+              <DataTable.Cell>{x}</DataTable.Cell>
+              <DataTable.Cell>${subscriptions[x].cost}</DataTable.Cell>
+              <DataTable.Cell>{subscriptions[x].dueDate}</DataTable.Cell>
+            </DataTable.Row>
+            )}
+          </DataTable>
       </View>
     );
 }
@@ -38,7 +55,6 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#ffe',
       alignItems: 'center',
-      justifyContent: 'center',
     },
     greenTxt: {
         color: '#072',
@@ -71,8 +87,18 @@ const notifStyle = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        alignItems: 'flex-start',
-        justifyContent: 'space-around',
-        align: 'center',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        flexWrap: 'wrap',
+        padding: 15,
     },
+});
+
+const tableStyles = StyleSheet.create({
+  container: {
+    padding: 15,
+  },
+  tableHeader: {
+    backgroundColor: '#DCDCDC',
+  },
 });

@@ -21,7 +21,7 @@ export async function loginWithEmail(email, password, navigation, onChangeAlert,
       const user = userCredential.user;
       console.log('successful login as: ', user.email)
       console.log('uid: ', user.uid)
-      navigation.navigate('Home')
+      navigation.navigate('Home', {email: user.email})
       onChangeLoading(null)
     })
     .catch((error) => {
@@ -49,7 +49,7 @@ export async function loginWithEmail(email, password, navigation, onChangeAlert,
 
 
 // The home screen contains the text “You are on the home page” and a button.
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({navigation, route}) {
   const [email, onChangeEmail] = React.useState('');
   const [password, onChangePassword] = React.useState('');
   const [alert, onChangeAlert] = React.useState(null);
@@ -86,7 +86,7 @@ export default function LoginScreen({navigation}) {
 
       {alert}
       {loading}
-      <View style = {{bottom: 110}}>
+      <View style = {{bottom: 123}}>
         <Button
           title="Login"
           onPress={() => loginWithEmail(email, password, navigation, onChangeAlert, onChangeLoading)}
