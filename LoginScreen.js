@@ -70,6 +70,7 @@ export default function LoginScreen({navigation}) {
         <SafeAreaView style = {{bottom: 79, margin: 30, padding: 20}}>
           <TextInput
             style={textboxStyle.input}
+            keyboardType="email-address"
             onChangeText={onChangeEmail}
             value={email}
             placeholder="Email"
