@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, View, Text, FlatList, TouchableOpacity, Image, Button, Alert} from "react-native";
 // About screen contains the text “You are on the about page” and a button.
-export default function HomeScreen({navigation}) {
-    function NotifObj(name, days) {
-        this.name = name;
-        this.days = days;
-    }
-    const objList = [new NotifObj("Electric", 2), new NotifObj("Water", 3), new NotifObj("Gas", 4)]
+export default function SubsScreen({navigation}) {
     const notification = () =>
         Alert.alert(
         "Reminder",
@@ -23,21 +18,11 @@ export default function HomeScreen({navigation}) {
         );
     return (
       <View style={styles.container}>
-        <Text style= {styles.greenTxt}>Struggle Financing</Text>
-        <Text style = {styles.blueTxt}>Notifications</Text>
-        <View style = {notifStyle.container}>
-        {objList.map(x => <TouchableOpacity activeOpacity={0.7} style={{ backgroundColor: '#072', padding: 10, borderRadius: 4 }} onPress={notification}>
-            <Text style={{ color: '#fff', fontSize: 30 }}>{x.name} bills due in {x.days} days</Text>
-        </TouchableOpacity>)}
-        </View>
+        <Text style= {styles.greenTxt}>Subscriptions</Text>
         <View style = {bottomStyle.container}>
         <Button
             title="Home"
             onPress={() => navigation.navigate('Home')}
-        />
-        <Button
-            title="Subscriptions"
-            onPress={() => navigation.navigate('Subs')}
         />
         <Button
             title="Logout"

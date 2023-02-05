@@ -12,9 +12,10 @@ import { StatusBar } from 'expo-status-bar';
 // import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import LoginScreen from './LoginScreen';// Home screen
-import HomeScreen from './HomeScreen';// About Screen
+import LoginScreen from './LoginScreen';
+import HomeScreen from './HomeScreen';
 import SignUpScreen from './SignUpScreen';
+import SubsScreen from './SubsScreen';
 // export default function App() {
 //   const [email, onChangeEmail] = React.useState('');
 //   return (
@@ -68,6 +69,10 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
+        /> 
+        <Stack.Screen
+          name="Subs"
+          component={SubsScreen}
         /> 
       </Stack.Navigator>
     </NavigationContainer>

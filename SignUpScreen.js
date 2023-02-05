@@ -136,7 +136,7 @@ export default function SignUpScreen({navigation}) {
         </TouchableWithoutFeedback>
         <Text style = {{bottom: 170, fontSize: 25}}>Bronco's Country {""}
           <Text style={{color: 'blue', textDecorationLine: 'underline'}}
-            onPress={() => signInWithEmail(email, password1, navigation, first, last, onChangeLoading)}>
+            onPress={() => signInWithEmail(email, password1, navigation.navigate("Subs"), first, last, onChangeLoading)}>
             Lets Ride
           </Text>
         </Text>
