@@ -1,5 +1,5 @@
 import React, { Component, useEffect } from 'react';
-import {StyleSheet, View, Text, FlatList, TouchableOpacity, Image, Button, Alert} from "react-native";
+import {StyleSheet, View, Text, FlatList, TouchableOpacity, Image, Button, Alert, ScrollView} from "react-native";
 import { DataTable } from 'react-native-paper';
 import { Center, VStack } from 'native-base';
 import { doc, getDoc } from "firebase/firestore";
@@ -8,30 +8,53 @@ import { db } from "./firebaseConfig";
 export default function SubsScreen({navigation, route}) {
     const [subscriptions, setSubs] = React.useState([]);
     var keyList = null;
+    var [subTotal] = React.useState(0);
     (subscriptions != null ? keyList = Object.keys(subscriptions) : keyList = []);
-    useEffect(async() => {
-      console.log('here')
-      const docRef = doc(db, "users", route.params.email);
-      const docSnap = await getDoc(docRef);
+    for (var i = 0; i < keyList.length; i++) {
+      (subscriptions != null ? subTotal += parseInt(subscriptions[keyList[i]].cost) : null);
+    }
+    useEffect(() => {
 
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        setSubs(docSnap.data().subscriptions)
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
+      async function fetchData() {
+        console.log('here')
+        const docRef = doc(db, "users", route.params.email);
+        const docSnap = await getDoc(docRef);
+  
+        if (docSnap.exists()) {
+          console.log("Document data:", docSnap.data());
+          setSubs(docSnap.data().subscriptions)
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
       }
+      fetchData();
+
+      // console.log('here')
+      // const docRef = doc(db, "users", route.params.email);
+      // const docSnap = await getDoc(docRef);
+
+      // if (docSnap.exists()) {
+      //   console.log("Document data:", docSnap.data());
+      //   setSubs(docSnap.data().subscriptions)
+      // } else {
+      //   // doc.data() will be undefined in this case
+      //   console.log("No such document!");
+      // }
     }, [])
     console.log(keyList);
     return (
       <View style = {styles.container}>
           <Text style= {styles.greenTxt}>Subscriptions</Text>
+          <Text style= {styles.greenTxt}>Total Cost = {subTotal}</Text>
           <View>
           <Button
             title="Add Subscription"
             onPress={() => navigation.navigate('SubPrompt', {email: route.params.email})}
           />
           </View>
+
+          <ScrollView style = {{width: 350}}>
           <DataTable style={tableStyles.container}>
             <DataTable.Header style={tableStyles.tableHeader}>
               <DataTable.Title>Name</DataTable.Title>
@@ -44,8 +67,10 @@ export default function SubsScreen({navigation, route}) {
               <DataTable.Cell>${subscriptions[x].cost}</DataTable.Cell>
               <DataTable.Cell>{subscriptions[x].dueDate}</DataTable.Cell>
             </DataTable.Row>
+            // {subTotal = subTotal + subscriptions[x].cost}
             )}
           </DataTable>
+          </ScrollView>
       </View>
     );
 }

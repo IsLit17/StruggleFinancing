@@ -99,6 +99,9 @@ export default function LoginScreen({navigation, route}) {
         </Text>
       </Text>
 
+      <Text style= {{color: 'green'}}>Made by The Deniers</Text>
+      <Text style= {{color: 'green'}}>Edgar, Sheel, and Caleb :D</Text>
+
     </View>
   );
 }

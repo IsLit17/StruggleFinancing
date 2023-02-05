@@ -23,6 +23,7 @@ export async function signInWithEmail(email, password, navigation, firstname, la
         lastname: lastname,
         email: user.email,
         uid: user.uid,
+        runningTotal: 0,
       });
       
       console.log('successful created user as: ', user.email)
